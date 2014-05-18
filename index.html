@@ -7,9 +7,14 @@
 	a{text-decoration: none;}
 	#top{ width: auto; height: 440px; background: #8ECFFE; position: relative; overflow:hidden;}
 	#top_inner{ width: 980px; height: 440px; display: table; margin: 0 auto; position: relative;}
-	#cloud{ width: 3840px; height: 300px; background: url("cloud.png") repeat-x; position: absolute; top: 140px; left: 0px;}
+	#cloud{ width: 3840px; height: 300px; background: url("static/img/cloud.png") repeat-x; position: absolute; top: 140px; left: 0px;}
 	#team{ font-size: 24px; font-family: "微软雅黑","黑体"; color: #fff; margin: 20px; cursor: default; }
-	#mac{ width:479px; height: 484px; background: url("title.png"); margin: 10px auto 0 auto;}
+	#mac{ width:475px; height: 273px; background: url("static/img/mac.png"); margin: 100px auto 0 auto; }
+	#slides{ width:360px; height: 225px; margin: 18px 58px auto auto; overflow: hidden; position: relative;}
+	#slide01{ width:360px; height: 225px; background: url("static/img/01.png"); position: absolute; left: 0}
+	#slide02{ width:360px; height: 225px; background: url("static/img/02.png"); position: absolute; left: 360px;}
+	#slide03{ width:360px; height: 225px; background: url("static/img/03.png"); position: absolute; left: 360px;}
+	#slide04{ width:360px; height: 225px; background: url("static/img/04.png"); position: absolute; left: 360px;}
 	#main{ width: 980px; height: 550px; margin: 0 auto; overflow: hidden;}
 	#some{ width: 580px; height: 100px; color: #999999; margin: 100px auto 50px auto; text-align: center; font-size: 16px}
 	#download{ width: 318px; height: 63px; margin: 0 auto; background: #8ECFFE; border-radius: 34px; font-family: "微软雅黑","黑体"; font-size: 30px; color: #fff; text-align: center; line-height: 63px;
@@ -18,32 +23,15 @@
 	#download:hover{background: #24A0FD;}
 	#text{width: 300px; margin: 20px auto; font-size: 14px; color: #8ECFFE;}
 	#copyright{text-align: center;  margin: 100px auto; font-size: 14px; color: #999999; }
-	#backtop{
-			height: 50px;
-			width: 50px;
-			background: #ffffff;
-			position: fixed;
-			bottom: 80px;
-			right: 100px;
-			border: 1px solid #58bbb8;
-			display: none;
-			font-size: 14px;
-			text-align: center;
-			line-height: 50px;
-			cursor: pointer;
-			color: #999999;
-			font-family: "微软雅黑";		
-			border-radius: 25px;
-			transition: color 0.5s,background 0.5s,border-radius 0.5s;
-			-webkit-transition:color 0.5s,background 0.5s,border-radius 0.5s;
-		}
-		#backtop:hover{
-			color: #ffffff;
-			background: #58bbb8;
-		}
 	</style>
+	<script type="text/javascript" src="static/js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript">
 	var x=0;
+	var slide=1;
+	function bodyload(){
+		cloudflow();
+		setTimeout("slides()", 1000);
+	}
 	function cloudflow(){
 		x--;
 		document.getElementById("cloud").style.left=x+"px";
@@ -51,18 +39,51 @@
 		if(x==-1920)
 			x=1;
 	}
-	function messageBox(){
-		alert("拼命上传中，敬请期待！");
+	$(function(){
+		$("#slides")
+	})
+	function slides(){
+		if(slide==5)
+			slide=1;
+		if(slide==1){
+			$("#slide01").animate({left:'-360px'}, 1000);
+			$("#slide02").css({left:'360px'});
+			$("#slide02").animate({left:'0'}, 1000);
+		}
+		else if(slide==2){
+			$("#slide02").animate({left:'-360px'}, 1000);
+			$("#slide03").css({left:'360px'});
+			$("#slide03").animate({left:'0'}, 1000);
+		}
+		else if(slide==3){
+			$("#slide03").animate({left:'-360px'}, 1000);
+			$("#slide04").css({left:'360px'});
+			$("#slide04").animate({left:'0'}, 1000);
+		}
+		else if(slide==4){
+			$("#slide04").animate({left:'-360px'}, 1000);
+			$("#slide01").css({left:'360px'});
+			$("#slide01").animate({left:'0'}, 1000);
+		}
+		slide++;
+		setTimeout("slides()", 5000);
 	}
 	</script>
 	<title>ecruos</title>
 </head>
-<body onload="cloudflow()">
+<body onload="bodyload()">
 	<div id="top">
 		<div id="cloud"></div>
 		<div id="top_inner">
 			<div id="team">Poika Saunoo Studio</div>
-			<div id="mac"></div>
+			<div id="mac">
+				<div id="slides">
+					<div id="slide01"></div>
+					<div id="slide02"></div>
+					<div id="slide03"></div>
+					<div id="slide04"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="main">
